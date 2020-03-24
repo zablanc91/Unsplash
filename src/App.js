@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import PhotoGrid from './components/PhotoGrid';
 import Unsplash, { toJson } from 'unsplash-js';
+import Grid from '@material-ui/core/Grid';
+
 import { APIkey } from './config/keys';
 
 const unsplash = new Unsplash({accessKey: APIkey});
@@ -11,9 +14,9 @@ function App() {
   //when App first loads, make an initial request for photos to display
   useEffect(() => {
     async function getInitialPhotos() {
-      const response = await unsplash.search.photos("California", 1, 10).then(toJson).then(json => json.results);
-
-    setPhotos(response);
+      const response = await unsplash.search.photos("California", 1, 12).then(toJson).then(json => json.results);
+      console.log(response);
+      setPhotos(response);
     }
 
     getInitialPhotos();
@@ -22,9 +25,7 @@ function App() {
   return (
     <div>
       <h3>Unsplash</h3>
-      {photos.map(photo =>(
-        <img src={photo.urls.regular} alt={photo.alt_description} key={photo.id} />
-      ))}
+      <PhotoGrid photos={photos} width={document.body.clientWidth} />
     </div>
   );
 }
