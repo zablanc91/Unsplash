@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
 import PhotoGrid from './components/PhotoGrid';
 import NavBar from './components/NavBar';
 import Search from './components/Search';
@@ -26,7 +25,6 @@ function App() {
   //to detect screen change and dynamically resize the PhotoGrid
   useEffect(() => {
     function handleResize(){
-      console.log(document.body.clientWidth);
       setWidth(document.body.clientWidth);
     }
 
