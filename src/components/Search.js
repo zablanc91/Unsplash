@@ -20,6 +20,7 @@ const Search = ({setPhotos}) => {
             else{
                 const response = await unsplash.search.photos(term, 1, 12).then(toJson).then(json => json.results);
                 console.log('setting photos');
+                console.log(response);
                 setPhotos(response);
             }
         }
