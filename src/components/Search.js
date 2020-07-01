@@ -11,7 +11,6 @@ const Search = ({setPhotos}) => {
         var charCode = (typeof e.which == "number") ? e.which : e.keyCode;
         
         if(charCode == 13){
-            console.log('pressed enter');
             let term = e.target.value;
 
             if(term === ''){
@@ -19,8 +18,7 @@ const Search = ({setPhotos}) => {
             }
             else{
                 const response = await unsplash.search.photos(term, 1, 12).then(toJson).then(json => json.results);
-                console.log('setting photos');
-                console.log(response);
+
                 setPhotos(response);
             }
         }

@@ -12,6 +12,7 @@ const useStyles = makeStyles(theme => (PhotoGridTheme));
 
 const PictureGrid = ({photos, width}) => {
     //useStateHook to keep track of current image clicked to view in full size
+    let dialogWidth = '';
     const [currentPhoto, updateCurrentPhoto] = useState({
         open: false,
         photo: {}
@@ -28,21 +29,25 @@ const PictureGrid = ({photos, width}) => {
         updateCurrentPhoto({open: false, photo: {}});
     }
 
-    //helper function to dynamically resize photo grid based on screen width in pixels
+    //helper function to dynamically resize photo grid and dialog based on screen width in pixels
    const getGridListCols = () => {
     //xl breakpoint
     if(width > 1920){
+        dialogWidth = 'xl';
         return 4;
     }
     //lg breakpoint
     else if(width > 1280){
+        dialogWidth = 'lg';
         return 3;
     }
     //md breakpoint
     else if(width > 960){
+        dialogWidth = 'md';
         return 2;
     }
     //sm and xs breakpoint
+    dialogWidth = 'sm';
     return 1;
 }
 
@@ -64,8 +69,8 @@ const PictureGrid = ({photos, width}) => {
                     </GridListTile>
                 ))}
             </GridList>
-            <Dialog onClose={closePhoto} open={currentPhoto.open} >
-                {(currentPhoto.open === false) ? null : <img src={currentPhoto.photo.urls.full} alt={currentPhoto.photo.alt_description}  style={{ width: '100%'}} />}
+            <Dialog onClose={closePhoto} open={currentPhoto.open} fullWidth={true} maxWidth={dialogWidth} >
+                {(currentPhoto.open === false) ? null : <img src={currentPhoto.photo.urls.full} alt={currentPhoto.photo.alt_description} style={{ width: '100%'}}/>}
             </Dialog>
         </div>
     );
